@@ -1,12 +1,12 @@
 # Ansible letsencrypt nginx webroot role
 
 
-> This is an [Ansible](http://www.ansible.com) role for Ubuntu 14.04 (did not test on other distros) which:
->
-> * downloads letsencrypt from git repo
-> * installs config with webroot authenticator
-> * runs letsencrypt to get the certificates if it can find none 
-> * creates cron job that checks certificates expire dates, rotates them when it is required and reloads nginx 
+This is an [Ansible](http://www.ansible.com) role for Ubuntu 14.04 (did not test on other distros) which:
+
+ * downloads letsencrypt from git repo
+ * installs config with webroot authenticator
+ * runs letsencrypt to get the certificates if it can find none 
+ * creates cron job that checks certificates expire dates, rotates them when it is required and reloads nginx 
 
 ## Installation
 
@@ -16,7 +16,7 @@ Using `ansible-galaxy`:
 $ ansible-galaxy install biomancer.letsencrypt_webroot
 ```
 
-There must exist acme-challenge location for all specified domains (`letsencrypt_domains` var) in nginx config :
+There must be specified acme-challenge location in nginx config for all domains from `letsencrypt_domains` var:
 ```
 location /.well-known/acme-challenge {
   allow all;
