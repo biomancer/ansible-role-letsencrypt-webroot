@@ -13,7 +13,7 @@ This is an [Ansible](http://www.ansible.com) role for Ubuntu 14.04 (did not test
 Using `ansible-galaxy`:
 
 ```shell
-$ ansible-galaxy install biomancer.letsencrypt_webroot
+$ ansible-galaxy install biomancer.letsencrypt-webroot
 ```
 
 There must be specified acme-challenge location in nginx config for all domains from `letsencrypt_domains` var:
@@ -39,7 +39,7 @@ This is an example playbook:
 - hosts: all
   sudo: yes
   roles:
-    - biomancer.letsencrypt_webroot
+    - biomancer.letsencrypt-webroot
   vars:
     letsencrypt_email: example@example.com
     # TODO modifying this list will change certs folder from /etc/letsencrypt/live/example.com/ to /etc/letsencrypt/live/example.com-0001
