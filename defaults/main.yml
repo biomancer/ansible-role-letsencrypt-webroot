@@ -1,0 +1,3 @@
+---
+letsencrypt_webroot_path: /opt/letsencrypt-webroot
+

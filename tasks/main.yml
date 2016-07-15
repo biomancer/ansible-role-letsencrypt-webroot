@@ -1,0 +1,30 @@
+---
+- name: clone the letsencrypt repository
+  git: repo=https://github.com/letsencrypt/letsencrypt dest=/opt/letsencrypt force=true
+
+- name: create letsencrypt configuration directory
+  file: path=/etc/letsencrypt owner=root group=root mode=0755 state=directory
+
+- name: create letsencrypt configuration directory
+  file: path={{ letsencrypt_webroot_path }} owner=root group=root mode=0755 state=directory
+
+- name: copy over letsencrypt configuration file
+  template:
+    src: letsencrypt_cli_ini.j2
+    dest: /etc/letsencrypt/cli.ini
+    owner: root
+    group: root
+    mode: 0644
+
+- name: run letsencrypt
+  command: '/opt/letsencrypt/letsencrypt-auto certonly --non-interactive --config /etc/letsencrypt/cli.ini --standalone'
+  args:
+    creates: "/etc/letsencrypt/live/{{ letsencrypt_domains[0] }}"
+
+- name: add a monthly cron job to renew letsencrypt certificate monthly
+  cron:
+    name: 'renew letsencrypt'
+    weekday: 1
+    hour: 8
+    user: root
+    job: '/opt/letsencrypt/letsencrypt-auto certonly --non-interactive --config /etc/letsencrypt/cli.ini >> /var/log/le-renewal.log && service nginx reload'
