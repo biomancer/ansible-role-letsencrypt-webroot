@@ -27,4 +27,4 @@
     weekday: 1
     hour: 8
     user: root
-    job: '/opt/letsencrypt/letsencrypt-auto certonly --non-interactive --config /etc/letsencrypt/cli.ini >> /var/log/le-renewal.log && service nginx reload'
+    job: '/opt/letsencrypt/letsencrypt-auto certonly --non-interactive --config /etc/letsencrypt/cli.ini --webroot >> /var/log/le-renewal.log && service nginx reload'
