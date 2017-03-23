@@ -21,10 +21,10 @@
   args:
     creates: "/etc/letsencrypt/live/{{ letsencrypt_domains[0] }}"
 
-- name: add a monthly cron job to renew letsencrypt certificate monthly
+- name: add a weekly cron job to renew letsencrypt certificate monthly
   cron:
     name: 'renew letsencrypt'
     weekday: 1
     hour: 8
     user: root
-    job: '/opt/letsencrypt/letsencrypt-auto certonly --non-interactive --config /etc/letsencrypt/cli.ini --webroot >> /var/log/le-renewal.log && service nginx reload'
+    job: '/opt/letsencrypt/letsencrypt-auto certonly --expand --non-interactive --config /etc/letsencrypt/cli.ini --webroot >> /var/log/le-renewal.log && service nginx reload'
